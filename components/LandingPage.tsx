@@ -4,7 +4,9 @@ import { business, hours, SITE_URL } from "@/lib/site";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
 import { Favorites } from "./Favorites";
-import { Experience } from "./Experience";
+import { About } from "./About";
+import { Marquee } from "./Marquee";
+import { Stories } from "./Stories";
 import { MenuSection } from "./MenuSection";
 import { Reviews } from "./Reviews";
 import { Celebrate } from "./Celebrate";
@@ -61,15 +63,19 @@ export function LandingPage({ locale }: { locale: Locale }) {
       <PageLoader label={t.loading} />
       <a
         href="#contenido"
-        className="sr-only z-50 rounded-full bg-lima px-4 py-2 font-semibold text-lima-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        className="sr-only z-50 rounded-full bg-lima px-4 py-2 font-extrabold text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
       >
         {t.skip}
       </a>
       <Header locale={locale} />
       <main id="contenido">
         <Hero locale={locale} />
+        <Stories locale={locale} />
+        <div className="mt-12 md:mt-16">
+          <Marquee locale={locale} />
+        </div>
         <Favorites locale={locale} />
-        <Experience locale={locale} />
+        <About locale={locale} />
         <MenuSection locale={locale} />
         <Reviews locale={locale} />
         <Celebrate locale={locale} />

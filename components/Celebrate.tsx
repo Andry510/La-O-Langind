@@ -1,57 +1,42 @@
 import Image from "next/image";
-import { Cake, Coffee } from "@phosphor-icons/react/ssr";
+import { Coffee } from "@phosphor-icons/react/ssr";
 import { getDictionary, type Locale } from "@/lib/i18n";
 import { promotions } from "@/lib/content";
 import { whatsappLink } from "@/lib/site";
-import { ButtonLink, SectionTitle } from "./ui";
+import { ButtonLink, Script, SectionTitle } from "./ui";
 
 export function Celebrate({ locale }: { locale: Locale }) {
   const t = getDictionary(locale).celebrate;
   if (!promotions.birthday && !promotions.catering) return null;
 
   return (
-    <section aria-labelledby="celebra-title" className="mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-28">
+    <section id="celebra" aria-labelledby="celebra-title" className="mx-auto max-w-7xl px-4 pb-20 md:px-8 md:pb-28">
       <SectionTitle id="celebra-title">{t.title}</SectionTitle>
-      <div className="mt-12 grid gap-6 md:grid-cols-5">
+      <div className="mt-10 grid gap-5 md:grid-cols-5 md:gap-6">
         {promotions.birthday && (
-          <article className="reveal relative overflow-hidden rounded-[var(--radius-media)] bg-lima p-8 text-lima-ink md:col-span-3 md:p-12">
-            <Image
-              src="/brand/flor-morada.webp"
-              alt=""
-              width={640}
-              height={640}
-              className="pointer-events-none absolute -bottom-10 -right-10 w-44 opacity-90 md:w-56"
-            />
-            <div className="relative flex max-w-md flex-col items-start gap-5">
-              <Cake size={36} weight="duotone" aria-hidden />
-              <h3 className="font-display text-3xl font-bold tracking-tight md:text-4xl">{t.birthday.title}</h3>
-              <p className="text-lg leading-relaxed">{t.birthday.body}</p>
-              <p className="text-sm opacity-80">{t.birthday.terms}</p>
-              <a
-                href={whatsappLink(t.birthday.message)}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-track="click_whatsapp_birthday"
-                className="mt-2 inline-flex min-h-12 items-center rounded-full bg-lima-ink px-6 font-semibold text-lima transition-transform active:scale-[0.98]"
-              >
+          // Póster de cumpleaños, como su pieza "El cumpleañero come gratis"
+          <article className="reveal relative overflow-hidden rounded-[2rem] border-2 border-oro/30 bg-papel p-8 md:col-span-3 md:p-12">
+            <Image src="/brand/flor-morada.webp" alt="" width={640} height={640} sizes="240px" className="pointer-events-none absolute -bottom-10 -right-8 w-44 md:w-60" />
+            <Image src="/brand/flor-naranja.webp" alt="" width={480} height={480} sizes="120px" className="pointer-events-none absolute -left-6 -top-6 w-24 opacity-90" />
+            <div className="relative flex max-w-md flex-col items-start gap-4">
+              <Script className="-rotate-3">{t.birthday.script}</Script>
+              <h3 className="display text-5xl text-oro md:text-6xl">{t.birthday.title}</h3>
+              <p className="text-lg font-semibold leading-relaxed">{t.birthday.body}</p>
+              <p className="text-sm font-semibold text-ink-soft">{t.birthday.terms}</p>
+              <ButtonLink href={whatsappLink(t.birthday.message)} external data-track="click_whatsapp_birthday" className="mt-2">
                 {t.birthday.cta}
-              </a>
+              </ButtonLink>
             </div>
           </article>
         )}
         {promotions.catering && (
-          <article className="reveal relative flex flex-col items-start gap-5 overflow-hidden rounded-[var(--radius-media)] border border-line p-8 md:col-span-2 md:p-10">
-            <Image
-              src="/brand/flor-naranja.webp"
-              alt=""
-              width={480}
-              height={480}
-              className="pointer-events-none absolute -right-8 -top-8 w-32 opacity-90 md:w-40"
-            />
-            <Coffee size={36} weight="duotone" className="text-selva dark:text-lima" aria-hidden />
-            <h3 className="font-display text-2xl font-bold tracking-tight md:text-3xl">{t.catering.title}</h3>
-            <p className="text-lg leading-relaxed text-ink-soft">{t.catering.body}</p>
-            <ButtonLink href={whatsappLink(t.catering.message)} external variant="secondary" data-track="click_whatsapp_catering" className="mt-auto">
+          <article className="reveal flex flex-col items-start gap-4 rounded-[2rem] bg-durazno p-8 md:col-span-2 md:p-10">
+            <span className="flex size-14 items-center justify-center rounded-full bg-papel text-durazno-ink">
+              <Coffee size={30} weight="duotone" aria-hidden />
+            </span>
+            <h3 className="display text-4xl md:text-5xl">{t.catering.title}</h3>
+            <p className="text-lg font-semibold leading-relaxed">{t.catering.body}</p>
+            <ButtonLink href={whatsappLink(t.catering.message)} external variant="dark" data-track="click_whatsapp_catering" className="mt-auto">
               {t.catering.cta}
             </ButtonLink>
           </article>

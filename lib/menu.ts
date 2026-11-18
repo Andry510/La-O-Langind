@@ -363,6 +363,10 @@ export function findItem(id: string): MenuItem | undefined {
   return undefined;
 }
 
+export function findCategoryId(itemId: string): string | undefined {
+  return menu.find((c) => c.items.some((i) => i.id === itemId))?.id;
+}
+
 export function formatPrice(amount: number, locale: Locale) {
   return new Intl.NumberFormat(locale === "es" ? "es-MX" : "en-US", {
     style: "currency",

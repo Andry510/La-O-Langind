@@ -38,7 +38,7 @@ export const loaderConfig = {
 export type PhotoKey = keyof typeof photos;
 
 /** Platillos destacados (ids de lib/menu.ts) en orden de aparición. El primero ocupa la celda grande. */
-export const favoriteIds = ["chilaquiles-la-o", "hotcakes-blueberry", "cafe-olla", "hotcakes-dubai", "mollequiles"] as const;
+export const favoriteIds = ["chilaquiles-la-o", "hotcakes-blueberry", "cafe-olla", "mollequiles", "hotcakes-dubai"] as const;
 
 /**
  * Reseñas reales, citadas textualmente (incluidas erratas) desde Google y Tripadvisor (17-nov-2026).

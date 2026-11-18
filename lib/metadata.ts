@@ -1,16 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Figtree } from "next/font/google";
+import { Bricolage_Grotesque, Nunito, Yellowtail } from "next/font/google";
 import { getDictionary, type Locale } from "./i18n";
 import { SITE_URL } from "./site";
 
-export const displayFont = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display-face", display: "swap" });
-export const bodyFont = Figtree({ subsets: ["latin"], variable: "--font-body", display: "swap" });
+// Display condensada (eje wdth), cuerpo redondeado como el anillo de la insignia y script para acentos puntuales.
+export const displayFont = Bricolage_Grotesque({
+  subsets: ["latin"],
+  axes: ["wdth", "opsz"],
+  variable: "--font-display-face",
+  display: "swap",
+});
+export const bodyFont = Nunito({ subsets: ["latin"], variable: "--font-body", display: "swap" });
+export const scriptFont = Yellowtail({ subsets: ["latin"], weight: "400", variable: "--font-script-face", display: "swap" });
+
+export const fontVariables = `${displayFont.variable} ${bodyFont.variable} ${scriptFont.variable}`;
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f3f4ec" },
-    { media: "(prefers-color-scheme: dark)", color: "#0e1a13" },
-  ],
+  themeColor: "#fff7ec",
+  colorScheme: "light",
 };
 
 export function buildMetadata(locale: Locale): Metadata {

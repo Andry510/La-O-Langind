@@ -1,63 +1,58 @@
 @import "tailwindcss";
 
 /*
-  Tokens de La O. Base: verde selva y hueso; acento único: verde lima del logotipo (#B7D456).
-  Lima nunca se usa como color de texto sobre fondos claros (contraste insuficiente).
-  Radios: elementos interactivos en píldora; fotos y tarjetas 1.5rem.
+  Sistema visual de La O, tomado de su identidad real (Instagram y logotipo):
+  - Base crema y verde de la insignia. Tema claro fijo: la marca es luminosa y festiva.
+  - Acento de acción único: verde lima del logotipo (todos los botones principales).
+  - Pasteles por categoría, como sus historias destacadas (fondo pastel + ícono del mismo tono, más oscuro).
+  - Radios: tarjetas 1.75rem, elementos interactivos en píldora.
 */
 :root {
-  --bg: #f3f4ec;
-  --surface: #fbfcf7;
-  --ink: #18241c;
-  --ink-soft: #4a574e;
-  --line: rgb(24 36 28 / 0.12);
-  --selva: #1a5632;
-  --selva-ink: #eef0e6;
-  --lima: #b7d456;
-  --lima-ink: #18241c;
-  --shadow: 26 86 50;
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0e1a13;
-    --surface: #15241b;
-    --ink: #eef0e6;
-    --ink-soft: #a9b5ac;
-    --line: rgb(238 240 230 / 0.12);
-    --selva: #123f28;
-    --selva-ink: #eef0e6;
-    --shadow: 0 0 0;
-    color-scheme: dark;
-  }
+@theme {
+  --color-crema: #fff7ec;
+  --color-papel: #fffdf8;
+  --color-ink: #1f3a1a;
+  --color-ink-soft: #4d5c43;
+  --color-line: rgb(31 58 26 / 0.14);
+  --color-verde: #2f6b26;
+  --color-lima: #a6c531;
+  --color-lima-suave: #e9f0c4;
+
+  --color-rosa: #f9d6e3;
+  --color-rosa-ink: #a8326a;
+  --color-durazno: #fddcc4;
+  --color-durazno-ink: #a24c14;
+  --color-salvia: #dce5c2;
+  --color-salvia-ink: #45622a;
+  --color-lavanda: #ddd6fb;
+  --color-lavanda-ink: #4f3fb8;
+  --color-coral: #f8d2ce;
+  --color-coral-ink: #ad3a35;
+  --color-uva: #b9a4f7;
+  --color-oro: #8a6214;
+
+  --radius-card: 1.75rem;
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-surface: var(--surface);
-  --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
-  --color-line: var(--line);
-  --color-selva: var(--selva);
-  --color-selva-ink: var(--selva-ink);
-  --color-lima: var(--lima);
-  --color-lima-ink: var(--lima-ink);
   --font-sans: var(--font-body);
   --font-display: var(--font-display-face);
-  --radius-media: 1.5rem;
+  --font-script: var(--font-script-face);
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 5.5rem;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   overflow-x: clip;
-  background: var(--bg);
-  color: var(--ink);
+  background: var(--color-crema);
+  color: var(--color-ink);
   font-family: var(--font-body), system-ui, sans-serif;
   -webkit-tap-highlight-color: transparent;
 }
@@ -69,16 +64,25 @@ body {
 }
 
 :focus-visible {
-  outline: 3px solid var(--lima);
+  outline: 3px solid var(--color-verde);
   outline-offset: 3px;
   border-radius: 0.5rem;
 }
 
-/* Entrada del hero */
+/* Titulares condensados, como las piezas de La O ("PLAYENSE", "GANADORES") */
+.display {
+  font-family: var(--font-display-face), system-ui, sans-serif;
+  font-variation-settings: "wdth" 75;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+}
+
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -86,16 +90,32 @@ body {
   }
 }
 
-/* Aparición al hacer scroll, solo en navegadores con animaciones ligadas al scroll */
 @keyframes reveal {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(28px) rotate(var(--tilt, 0deg));
   }
   to {
     opacity: 1;
-    transform: none;
+    transform: rotate(var(--tilt, 0deg));
   }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Inclinación tipo sticker, compatible con la animación de aparición */
+.tilt {
+  transform: rotate(var(--tilt, 0deg));
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -104,16 +124,27 @@ body {
     animation-delay: calc(var(--i, 0) * 90ms);
   }
 
+  .spin-slow {
+    animation: spin 22s linear infinite;
+  }
+
+  .marquee-track {
+    animation: marquee 38s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
   @supports (animation-timeline: view()) {
     .reveal {
       animation: reveal linear both;
       animation-timeline: view();
-      animation-range: entry 0% entry 40%;
+      animation-range: entry 0% entry 35%;
     }
   }
 }
 
-/* Pestañas desplazables sin barra visible */
 .no-scrollbar {
   scrollbar-width: none;
 }

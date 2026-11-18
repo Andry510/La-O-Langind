@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { loaderConfig } from "@/lib/content";
-import { Wordmark } from "./ui";
+import { Badge } from "./ui";
 
 type Phase = "loading" | "leaving" | "done";
 
@@ -101,13 +101,13 @@ export function PageLoader({ label }: { label: string }) {
         id="page-loader"
         role="status"
         aria-live="polite"
-        className={`fixed inset-0 z-50 flex items-center justify-center bg-bg transition-opacity duration-500 ease-out motion-reduce:transition-none ${
+        className={`fixed inset-0 z-50 flex items-center justify-center bg-crema transition-opacity duration-500 ease-out motion-reduce:transition-none ${
           phase === "leaving" ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
       >
         <span className="sr-only">{label}</span>
-        <div className="relative flex size-36 items-center justify-center">
-          <Wordmark className="size-24 text-[1.7rem]" />
+        <div className="relative flex size-44 items-center justify-center">
+          <Badge className="size-32" />
           <div ref={lottieRef} aria-hidden className="pointer-events-none absolute inset-0" />
         </div>
       </div>
